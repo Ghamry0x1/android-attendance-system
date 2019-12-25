@@ -43,7 +43,6 @@ export default {
   }),
   methods: {
     submit: function() {
-      console.log("this.lectureNumber", this.lectureNumber);
       const data = {
         course: {
           name: "Mobile Computing",
@@ -55,14 +54,12 @@ export default {
         }
       };
       axios
-        .post("http://localhost:3000/qrcode", data)
+        .post("http://104.154.52.199:3000/qrcode", data)
         .then(response => {
           this.encodedQR = response.data;
-          console.log(response);
-          console.log(this.encodedQR);
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
     }
   }
