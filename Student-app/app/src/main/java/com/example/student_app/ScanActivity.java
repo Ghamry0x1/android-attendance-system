@@ -31,6 +31,14 @@ public class ScanActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;
     final int CAMERA_PERMISSION_CODE=0;
 
+    public void KillApp(){
+        Toast.makeText(ScanActivity.this,getString(R.string.IdiotUser),Toast.LENGTH_SHORT).show();
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory(Intent.CATEGORY_HOME );
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,18 +52,22 @@ public class ScanActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(ScanActivity.this,Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
 
             // Permission is not granted
-            Toast.makeText(ScanActivity.this,getString(R.string.IdiotUser),Toast.LENGTH_SHORT).show();
-            ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
+
+            //ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
             //Check again
-            if (ContextCompat.checkSelfPermission(ScanActivity.this,Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
-                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                homeIntent.addCategory(Intent.CATEGORY_HOME );
-                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(homeIntent);
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(ScanActivity.this,Manifest.permission.CAMERA)) {
+                Log.d("asdasd", "onCreate: Nooooooo");
+                ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
+            }else{
+                Log.d("asdasd", "onCreate: Hereeeee");
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
             }
         } else {
             // Permission has already been granted
         }
+
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
@@ -104,7 +116,9 @@ public class ScanActivity extends AppCompatActivity {
         scannerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCodeScanner.startPreview();
+                if (ContextCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    mCodeScanner.startPreview();
+                }else{ KillApp(); }
             }
         });
     }

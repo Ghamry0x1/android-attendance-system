@@ -5,7 +5,7 @@
     <string name="sign_in">SIGN IN</string>
     <string name="Credentials">Please enter your credentials</string>
     <string name="NoAcc">Don\'t Have an Account?  Sign Up</string>
-    <string name="IdiotUser">why are you like this?</string>
+    <string name="IdiotUser">Please enable camera permission</string>
     <string name="IntentKey">StdId</string>
     <string name="InvalidID">Enter a valid ID</string>
     <string name="ImgDesc">Ain Shams logo</string>
