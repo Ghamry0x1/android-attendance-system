@@ -113,10 +113,12 @@ router.get('/attendance', (req, res) => {
   req.query.week ? (week = req.query.week) : null;
   if (week)
     Attendance.findOne({ weekNumber: week })
+      .populate({ path: 'students', model: 'User' })
       .then(record => res.status(200).json(record))
       .catch(err => res.status(400).json(err));
   else {
     Attendance.find({})
+      .populate({ path: 'students', model: 'User' })
       .then(records => res.status(200).json(records))
       .catch(err => res.status(400).json(err));
   }
