@@ -7,9 +7,16 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
@@ -29,7 +36,9 @@ public class ScanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan);
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
+        final RequestQueue queue = Volley.newRequestQueue(this);
 
+        final String url = "http://104.154.52.199:3000/attendance";
 
         if (ContextCompat.checkSelfPermission(ScanActivity.this,Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
 
@@ -50,7 +59,6 @@ public class ScanActivity extends AppCompatActivity {
             }
         } else {
             // Permission has already been granted
-
         }
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -65,6 +73,26 @@ public class ScanActivity extends AppCompatActivity {
                             JSONObject user = new JSONObject();
                             user.put("id", getIntent().getStringExtra(getText(R.string.IntentKey).toString()));
                             reader.put("student", user);
+                            Log.d("txt", reader.toString()+"");
+                            Log.d("txt", "run: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                                    (Request.Method.POST, url, reader, new Response.Listener<JSONObject>() {
+
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            Toast.makeText(getApplicationContext(), "Response:  " + response.toString(), Toast.LENGTH_SHORT).show();
+                                            Log.d("tst", "Response: " + response.toString());
+                                        }
+                                    }, new Response.ErrorListener() {
+
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.d("tst", "onErrorResponse: " + error.toString());
+                                            //onBackPressed();
+                                        }
+                                    });
+
+                            queue.add(jsonObjectRequest);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

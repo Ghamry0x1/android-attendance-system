@@ -26,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String TempID = StId.getText().toString().trim();
                 if (TempID.length() == 7) {     //  xxPxxxx
-                    if (TempID.charAt(0) >= '0' && TempID.charAt(0) <= 9){
-                        if (TempID.charAt(1) >= '0' && TempID.charAt(1) <= 9){
+                    if (TempID.charAt(0) >= '0' && TempID.charAt(0) <= '9'){
+                        if (TempID.charAt(1) >= '0' && TempID.charAt(1) <= '9'){
                             if (TempID.charAt(2) == 'P' || TempID.charAt(2) == 'p'){
-                                if (TempID.charAt(3) >= '0' && TempID.charAt(3) <= 9){
-                                    if (TempID.charAt(4) >= '0' && TempID.charAt(4) <= 9){
-                                        if (TempID.charAt(5) >= '0' && TempID.charAt(5) <= 9){
-                                            if (TempID.charAt(6) >= '0' && TempID.charAt(6) <= 9){
+                                if (TempID.charAt(3) >= '0' && TempID.charAt(3) <= '9'){
+                                    if (TempID.charAt(4) >= '0' && TempID.charAt(4) <= '9'){
+                                        if (TempID.charAt(5) >= '0' && TempID.charAt(5) <= '9'){
+                                            if (TempID.charAt(6) >= '0' && TempID.charAt(6) <= '9'){
                                                 Intent myIntent = new Intent(MainActivity.this, ScanActivity.class);
                                                 myIntent.putExtra(getText(R.string.IntentKey).toString(), TempID);
                                                 MainActivity.this.startActivity(myIntent);
