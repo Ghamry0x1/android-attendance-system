@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +14,9 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ScanActivity extends AppCompatActivity {
 
@@ -37,13 +39,11 @@ public class ScanActivity extends AppCompatActivity {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                Log.d("cool", "here");
-                Toast.makeText(ScanActivity.this,"why are you like this?",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScanActivity.this,getString(R.string.IdiotUser),Toast.LENGTH_SHORT).show();
                 ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
             } else {
                 // No explanation needed; request the permission
                 ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
-                Log.d("cool", "No here");
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
                 // result of the request.
@@ -59,7 +59,15 @@ public class ScanActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getBaseContext(), result.getText(), Toast.LENGTH_SHORT).show();
+                        String myRes = result.getText();
+                        try {
+                            JSONObject reader = new JSONObject(myRes);
+                            JSONObject user = new JSONObject();
+                            user.put("id", getIntent().getStringExtra(getText(R.string.IntentKey).toString()));
+                            reader.put("student", user);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
