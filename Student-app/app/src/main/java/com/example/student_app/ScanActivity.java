@@ -87,8 +87,11 @@ public class ScanActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Log.d("tst", "onErrorResponse: " + error.toString());
-                                            //onBackPressed();
+                                            Log.d("tt", "code: " + error.networkResponse.statusCode);
+                                            if (error.networkResponse.statusCode == 400) {
+                                                Toast.makeText(getApplicationContext(), "you have already submitted your attendance", Toast.LENGTH_SHORT).show();
+                                            }
+                                            onBackPressed();
                                         }
                                     });
 
