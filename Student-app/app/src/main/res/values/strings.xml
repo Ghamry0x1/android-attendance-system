@@ -3,6 +3,6 @@
     <string name="ID">Student ID</string>
     <string name="pass">Password</string>
     <string name="sign_in">SIGN IN</string>
-    <string name="Credentials">Please enter you credentials</string>
+    <string name="Credentials">Please enter your credentials</string>
     <string name="NoAcc">Don\'t Have an Account?  Sign Up</string>
 </resources>
