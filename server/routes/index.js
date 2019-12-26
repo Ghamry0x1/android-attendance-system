@@ -26,18 +26,6 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/qrcode', (req, res) => {
-  const courseName = req.body.course.name;
-  const courseCode = req.body.course.code;
-  const lectureNumber = req.body.lecture.number;
-  const lectureDate = req.body.lecture.date;
-
-  const data = {
-    courseName,
-    courseCode,
-    lectureNumber,
-    lectureDate
-  };
-
   const opts = {
     errorCorrectionLevel: 'H',
     type: 'image/jpeg',
@@ -45,7 +33,7 @@ router.post('/qrcode', (req, res) => {
     margin: 1
   };
 
-  QRCode.toDataURL(JSON.stringify(data), opts)
+  QRCode.toDataURL(JSON.stringify(req.body), opts)
     .then(qrcode => {
       res.status(200).json(qrcode);
     })
