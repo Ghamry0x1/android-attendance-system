@@ -86,7 +86,7 @@ export default {
         }
       };
       axios
-        .post("http://http://104.154.52.199:3000/qrcode", data)
+        .post("http://104.154.52.199:3000/qrcode", data)
         .then(response => {
           this.encodedQR = response.data;
         })
@@ -97,9 +97,9 @@ export default {
     viewAttendanceList: function() {
       if (this.lectureNumber != "") this.dialog = true;
       let attendanceAPI;
-      // if(this.lectureNumber == '') attendanceAPI = 'http://http://104.154.52.199:3000/attendance';
-      // else attendanceAPI = `http://http://104.154.52.199:3000/attendance?week=${this.lectureNumber}`;
-      attendanceAPI = `http://http://104.154.52.199:3000/attendance?week=${this.lectureNumber}`;
+      // if(this.lectureNumber == '') attendanceAPI = 'http://104.154.52.199:3000/attendance';
+      // else attendanceAPI = `http://104.154.52.199:3000/attendance?week=${this.lectureNumber}`;
+      attendanceAPI = `http://104.154.52.199:3000/attendance?week=${this.lectureNumber}`;
       axios
         .get(attendanceAPI)
         .then(response => {
