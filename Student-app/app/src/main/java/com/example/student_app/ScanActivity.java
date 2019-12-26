@@ -16,6 +16,9 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ScanActivity extends AppCompatActivity {
 
     private CodeScanner mCodeScanner;
@@ -59,7 +62,17 @@ public class ScanActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getBaseContext(), result.getText(), Toast.LENGTH_SHORT).show();
+                        String myRes = result.getText();
+                        Log.d("ete", "run: " + myRes);
+                        try {
+                            JSONObject reader = new JSONObject(myRes);
+                            JSONObject user = new JSONObject();
+                            user.put("id", getIntent().getStringExtra("key"));
+                            reader.put("student", user);
+                            Log.d("ete", "run: myRes" + reader.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
