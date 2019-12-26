@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                                         if (TempID.charAt(5) >= '0' && TempID.charAt(5) <= 9){
                                             if (TempID.charAt(6) >= '0' && TempID.charAt(6) <= 9){
                                                 Intent myIntent = new Intent(MainActivity.this, ScanActivity.class);
-                                                myIntent.putExtra("key", TempID);
+                                                myIntent.putExtra(getText(R.string.IntentKey).toString(), TempID);
                                                 MainActivity.this.startActivity(myIntent);
                                             }
                                         }
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }else{
-                    Toast.makeText(MainActivity.this,"Enter a valid ID",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,getText(R.string.InvalidID),Toast.LENGTH_SHORT).show();
                 }
             }
         });
