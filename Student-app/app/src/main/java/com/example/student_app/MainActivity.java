@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                                     if (TempID.charAt(4) >= '0' && TempID.charAt(4) <= '9'){
                                         if (TempID.charAt(5) >= '0' && TempID.charAt(5) <= '9'){
                                             if (TempID.charAt(6) >= '0' && TempID.charAt(6) <= '9'){
-                                                Intent myIntent = new Intent(MainActivity.this, ScanActivity.class);
+                                                Intent myIntent = new Intent(MainActivity.this, Main2Activity.class);
                                                 myIntent.putExtra(getText(R.string.IntentKey).toString(), TempID);
                                                 MainActivity.this.startActivity(myIntent);
                                             }

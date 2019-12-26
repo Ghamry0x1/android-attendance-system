@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:text="@string/sign_in"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/White"
             android:textSize="20sp" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:text="@string/Credentials"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/White"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -80,7 +80,7 @@
             android:padding="10dp"
             android:text="@string/NoAcc"
             android:textAllCaps="true"
-            android:textColor="#FAD0E1"
+            android:textColor="@color/LightPink"
             android:textSize="13sp"
             android:textStyle="bold" />
 

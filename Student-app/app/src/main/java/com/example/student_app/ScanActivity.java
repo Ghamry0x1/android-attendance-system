@@ -1,6 +1,7 @@
 package com.example.student_app;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,19 +44,14 @@ public class ScanActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(ScanActivity.this,Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
 
             // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(ScanActivity.this,Manifest.permission.CAMERA)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                Toast.makeText(ScanActivity.this,getString(R.string.IdiotUser),Toast.LENGTH_SHORT).show();
-                ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
+            Toast.makeText(ScanActivity.this,getString(R.string.IdiotUser),Toast.LENGTH_SHORT).show();
+            ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
+            //Check again
+            if (ContextCompat.checkSelfPermission(ScanActivity.this,Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory(Intent.CATEGORY_HOME );
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
             }
         } else {
             // Permission has already been granted
@@ -80,8 +76,8 @@ public class ScanActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onResponse(JSONObject response) {
-                                            Toast.makeText(getApplicationContext(), "Response:  " + response.toString(), Toast.LENGTH_SHORT).show();
-                                            Log.d("tst", "Response: " + response.toString());
+                                            Toast.makeText(getApplicationContext(), getText(R.string.Attend), Toast.LENGTH_SHORT).show();
+                                            onBackPressed();
                                         }
                                     }, new Response.ErrorListener() {
 
@@ -89,7 +85,9 @@ public class ScanActivity extends AppCompatActivity {
                                         public void onErrorResponse(VolleyError error) {
                                             Log.d("tt", "code: " + error.networkResponse.statusCode);
                                             if (error.networkResponse.statusCode == 400) {
-                                                Toast.makeText(getApplicationContext(), "you have already submitted your attendance", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getApplicationContext(), getText(R.string.AttendDone), Toast.LENGTH_SHORT).show();
+                                            }else{
+                                                Toast.makeText(getApplicationContext(), getText(R.string.error), Toast.LENGTH_SHORT).show();
                                             }
                                             onBackPressed();
                                         }

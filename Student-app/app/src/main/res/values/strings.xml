@@ -8,4 +8,12 @@
     <string name="IdiotUser">why are you like this?</string>
     <string name="IntentKey">StdId</string>
     <string name="InvalidID">Enter a valid ID</string>
+    <string name="ImgDesc">Ain Shams logo</string>
+    <string name="CourseCode">CSE437</string>
+    <string name="CourseName">Mobile Computing</string>
+    <string name="ScanCode">Scan Code</string>
+
+    <string name="Attend">Attendance submitted</string>
+    <string name="AttendDone">you have already submitted your attendance</string>
+    <string name="error">An error occurred pleases try again later</string>
 </resources>
