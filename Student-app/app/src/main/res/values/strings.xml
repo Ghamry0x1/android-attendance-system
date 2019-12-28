@@ -3,6 +3,7 @@
     <string name="ID">Student ID</string>
     <string name="pass">Password</string>
     <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
     <string name="Credentials">Please enter your credentials</string>
     <string name="NoAcc">Don\'t Have an Account?  Sign Up</string>
     <string name="IdiotUser">Please enable camera permission</string>
@@ -12,7 +13,7 @@
     <string name="CourseCode">CSE437</string>
     <string name="CourseName">Mobile Computing</string>
     <string name="ScanCode">Scan Code</string>
-
+    <string name="SignUpDone">Successfully signed up</string>
     <string name="Attend">Attendance submitted</string>
     <string name="AttendDone">you have already submitted your attendance</string>
     <string name="error">An error occurred pleases try again later</string>

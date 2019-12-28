@@ -1,36 +1,24 @@
 package com.example.student_app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     Button Sign;
     EditText StId;
-    TextView SingUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
 
         Sign = findViewById(R.id.SignInBtn);
         StId = findViewById(R.id.Idtxt);
-        SingUp = findViewById(R.id.signUp_text);
-
-        SingUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, RegisterActivity.class);
-                MainActivity.this.startActivity(myIntent);
-            }
-        });
 
         Sign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,10 +32,8 @@ public class MainActivity extends AppCompatActivity {
                                     if (TempID.charAt(4) >= '0' && TempID.charAt(4) <= '9'){
                                         if (TempID.charAt(5) >= '0' && TempID.charAt(5) <= '9'){
                                             if (TempID.charAt(6) >= '0' && TempID.charAt(6) <= '9'){
-                                                // API call here
-                                                Intent myIntent = new Intent(MainActivity.this, Main2Activity.class);
-                                                myIntent.putExtra(getText(R.string.IntentKey).toString(), TempID);
-                                                MainActivity.this.startActivity(myIntent);
+                                                Toast.makeText(RegisterActivity.this,getText(R.string.SignUpDone),Toast.LENGTH_SHORT).show();   //Change later
+                                                onBackPressed(); //Change later
                                             }
                                         }
                                     }
@@ -56,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }else{
-                    Toast.makeText(MainActivity.this,getText(R.string.InvalidID),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,getText(R.string.InvalidID),Toast.LENGTH_SHORT).show();
                 }
             }
         });
