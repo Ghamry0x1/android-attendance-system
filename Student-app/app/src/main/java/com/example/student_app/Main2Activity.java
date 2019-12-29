@@ -25,7 +25,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(Main2Activity.this, ScanActivity.class);
-                myIntent.putExtra(getText(R.string.IntentKey).toString(), getIntent().getStringExtra(getText(R.string.IntentKey).toString()));
+                myIntent.putExtra(Constant.IntentID, getIntent().getStringExtra(Constant.IntentID));
                 Main2Activity.this.startActivity(myIntent);
             }
         });

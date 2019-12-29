@@ -29,7 +29,7 @@ import org.json.JSONObject;
 public class ScanActivity extends AppCompatActivity {
 
     private CodeScanner mCodeScanner;
-    final int CAMERA_PERMISSION_CODE=0;
+
 
     public void KillApp(){
         Toast.makeText(ScanActivity.this,getString(R.string.IdiotUser),Toast.LENGTH_SHORT).show();
@@ -57,16 +57,12 @@ public class ScanActivity extends AppCompatActivity {
             //Check again
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(ScanActivity.this,Manifest.permission.CAMERA)) {
-                Log.d("asdasd", "onCreate: Nooooooo");
-                ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
+                ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},Constant.CAMERA_PERMISSION_CODE);
             }else{
-                Log.d("asdasd", "onCreate: Hereeeee");
                 // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
+                ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},Constant.CAMERA_PERMISSION_CODE);
             }
-        } else {
-            // Permission has already been granted
-        }
+        } else {/* Permission has already been granted*/}
 
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -79,7 +75,7 @@ public class ScanActivity extends AppCompatActivity {
                         try {
                             JSONObject reader = new JSONObject(myRes);
                             JSONObject user = new JSONObject();
-                            user.put("id", getIntent().getStringExtra(getText(R.string.IntentKey).toString()));
+                            user.put("id", getIntent().getStringExtra(Constant.IntentID));
                             reader.put("student", user);
                             Log.d("txt", reader.toString()+"");
                             Log.d("txt", "run: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
