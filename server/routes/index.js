@@ -33,19 +33,28 @@ router.post('/qrcode', (req, res) => {
     margin: 1
   };
 
-  QRCode.toDataURL(JSON.stringify(req.body), opts)
-    .then(qrcode => {
-      const newRec = new Attendance({
-        weekNumber: req.body.lecture.number
-      });
-      newRec
-        .save()
-        .then(saved => res.status(200).json(qrcode))
-        .catch(err => res.status(400).json(err));
+  Attendance.findOne({ weekNumber: req.body.lecture.number })
+    .then(record => {
+      if (record) {
+        res.status(200).json(record.qrcode);
+      } else {
+        const newRec = new Attendance({
+          weekNumber: req.body.lecture.number
+        });
+        QRCode.toDataURL(JSON.stringify(req.body), opts)
+          .then(qrcode => {
+            newRec.qrcode = qrcode;
+            newRec
+              .save()
+              .then(saved => res.status(200).json(qrcode))
+              .catch(err => res.status(400).json(err));
+          })
+          .catch(err => {
+            res.status(400).json(err);
+          });
+      }
     })
-    .catch(err => {
-      res.status(400).json(err);
-    });
+    .catch(err => res.status(400).json(err));
 });
 
 router.post('/attendance', (req, res) => {

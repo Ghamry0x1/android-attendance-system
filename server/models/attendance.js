@@ -8,6 +8,9 @@ const Attendance_schema = mongoose.Schema({
   weekNumber: {
     type: Number,
     unique: true
+  },
+  qrcode: {
+    type: String
   }
 });
 
