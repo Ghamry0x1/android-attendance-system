@@ -4,6 +4,9 @@ const User_schema = mongoose.Schema({
   studentID: {
     type: String,
     unique: true
+  },
+  name: {
+    type: String
   }
 });
 

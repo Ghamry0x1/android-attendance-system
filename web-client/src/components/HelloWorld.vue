@@ -111,16 +111,18 @@ export default {
         align: "left",
         sortable: true,
         value: "studentID"
-      }
+      },
+      { text: "Name", value: "name" }
       // { text: 'Actions', value: 'action', sortable: false },
-      // { text: "Name", value: "name" }
     ],
     // editedIndex: -1,
     editedItem: {
-      studentID: ""
+      studentID: "",
+      name: ""
     },
     defaultItem: {
-      studentID: ""
+      studentID: "",
+      name: ""
     },
     addStudentResponseMsg: "",
     dialog1ResponseMsg: "",
@@ -203,7 +205,7 @@ export default {
         .post("http://104.154.52.199:3000/attendance", data)
         .then(response => {
           this.addStudentResponseMsg = `Student ${this.editedItem.studentID} is added successfully`;
-          this.attendanceList = response.data.students;
+          this.viewAttendanceList();
           this.snackbar = true;
         })
         .catch(err => {

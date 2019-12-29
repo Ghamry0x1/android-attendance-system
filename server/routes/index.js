@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.post('/register', (req, res) => {
   const studentID = req.body.student.id;
-  const student = new User({ studentID });
+  const name = req.body.student.name;
+  const student = new User({ studentID, name });
   student
     .save()
     .then(savedUser => res.status(200).json(savedUser))
