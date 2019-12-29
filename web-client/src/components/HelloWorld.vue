@@ -85,9 +85,9 @@
         </v-snackbar>
       </v-dialog>
       <v-snackbar v-model="atsnackbar">
-          {{ viewAttendanceListResponseMsg }}
-          <v-btn color="pink" text @click="atsnackbar = false">Close</v-btn>
-        </v-snackbar>
+        {{ dialog1ResponseMsg }}
+        <v-btn color="pink" text @click="atsnackbar = false">Close</v-btn>
+      </v-snackbar>
     </v-layout>
   </v-container>
 </template>
@@ -123,7 +123,7 @@ export default {
       studentID: ""
     },
     addStudentResponseMsg: "",
-    viewAttendanceListResponseMsg: "",
+    dialog1ResponseMsg: "",
     snackbar: false,
     atsnackbar: false
   }),
@@ -139,34 +139,44 @@ export default {
           date: Date.now()
         }
       };
-      axios
-        .post("http://104.154.52.199:3000/qrcode", data)
-        .then(response => {
-          this.encodedQR = response.data;
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      if (this.lectureNumber != "") {
+        axios
+          .post("http://104.154.52.199:3000/qrcode", data)
+          .then(response => {
+            this.encodedQR = response.data;
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      } else {
+        this.dialog1ResponseMsg = "Please enter a Lecture Number to continue";
+        this.atsnackbar = true;
+      }
     },
     viewAttendanceList() {
-      let attendanceAPI;
-      // if(this.lectureNumber == '') attendanceAPI = 'http://104.154.52.199:3000/attendance';
-      // else attendanceAPI = `http://104.154.52.199:3000/attendance?week=${this.lectureNumber}`;
-      attendanceAPI = `http://104.154.52.199:3000/attendance?week=${this.lectureNumber}`;
-      axios
-        .get(attendanceAPI)
-        .then(response => {
-          if (response.data == null) {
-            this.viewAttendanceListResponseMsg = `Please submit a lecture first to see attendance list`;
-            this.atsnackbar = true;
-          } else {
-            this.dialog1 = true;
-            this.attendanceList = response.data.students;
-          }
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      if (this.lectureNumber != "") {
+        let attendanceAPI;
+        // if(this.lectureNumber == '') attendanceAPI = 'http://104.154.52.199:3000/attendance';
+        // else attendanceAPI = `http://104.154.52.199:3000/attendance?week=${this.lectureNumber}`;
+        attendanceAPI = `http://104.154.52.199:3000/attendance?week=${this.lectureNumber}`;
+        axios
+          .get(attendanceAPI)
+          .then(response => {
+            if (response.data == null) {
+              this.dialog1ResponseMsg = `Please submit a lecture first to see attendance list`;
+              this.atsnackbar = true;
+            } else {
+              this.dialog1 = true;
+              this.attendanceList = response.data.students;
+            }
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      } else {
+        this.dialog1ResponseMsg = "Please enter a Lecture Number to continue";
+        this.atsnackbar = true;
+      }
     },
     close() {
       this.dialog2 = false;
