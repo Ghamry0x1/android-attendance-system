@@ -19,8 +19,8 @@ router.post('/login', (req, res) => {
   const studentID = req.body.student.id;
   User.findOne({ studentID: studentID })
     .then(user => {
-      if (user) res.status(200).json('success');
-      else res.status(400).json('failed');
+      if (user) res.status(200).json(user);
+      else res.status(400).json(err);
     })
     .catch(err => res.status(400).json(err));
 });
