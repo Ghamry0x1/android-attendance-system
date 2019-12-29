@@ -195,7 +195,6 @@ export default {
           this.addStudentResponseMsg = `Student ${this.editedItem.studentID} is added successfully`;
           this.attendanceList = response.data.students;
           this.snackbar = true;
-          this.dialog1 = false;
         })
         .catch(err => {
           this.addStudentResponseMsg = err.response.data;
