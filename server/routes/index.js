@@ -35,7 +35,13 @@ router.post('/qrcode', (req, res) => {
 
   QRCode.toDataURL(JSON.stringify(req.body), opts)
     .then(qrcode => {
-      res.status(200).json(qrcode);
+      const newRec = new Attendance({
+        weekNumber: req.body.lecture.number
+      });
+      newRec
+        .save()
+        .then(saved => res.status(200).json(qrcode))
+        .catch(err => res.status(400).json(err));
     })
     .catch(err => {
       res.status(400).json(err);
@@ -49,23 +55,25 @@ router.post('/attendance', (req, res) => {
   const lectureDate = req.body.lecture.date;
   const studentID = req.body.student.id;
 
-  const data = {
-    courseName,
-    courseCode,
-    lectureNumber,
-    lectureDate,
-    studentID
-  };
+  // const data = {
+  //   courseName,
+  //   courseCode,
+  //   lectureNumber,
+  //   lectureDate,
+  //   studentID
+  // };
 
   Attendance.findOne({ weekNumber: lectureNumber })
+    .populate({ path: 'students', model: 'User' })
     .then(record => {
       if (record) {
-        console.log('inside if');
         User.findOne({ studentID: studentID })
           .then(user => {
             if (user) {
-              if (record.students.includes(user._id))
-                res.status(400).json('already submitted');
+              if (
+                record.students.find(student => student.studentID == studentID)
+              )
+                res.status(400).json('Student attendance already submitted');
               else {
                 record.students.push(user);
                 record
@@ -73,24 +81,14 @@ router.post('/attendance', (req, res) => {
                   .then(savedRec => res.status(200).json(savedRec))
                   .catch(err => res.status(400).json(err));
               }
-            } else res.status(400).json('failed');
+            } else
+              res
+                .status(400)
+                .json(`Student you're trying to add is not registered`);
           })
           .catch(err => res.status(400).json(err));
       } else {
-        const newRec = new Attendance({
-          weekNumber: lectureNumber
-        });
-        User.findOne({ studentID: studentID })
-          .then(user => {
-            if (user) {
-              newRec.students.push(user);
-              newRec
-                .save()
-                .then(savedRec => res.status(200).json(savedRec))
-                .catch(err => res.status(400).json(err));
-            } else res.status(400).json('failed');
-          })
-          .catch(err => res.status(400).json(err));
+        res.status(400).json(`Please enter lecture number and submit it first`);
       }
     })
     .catch(err => res.status(400).json(err));
