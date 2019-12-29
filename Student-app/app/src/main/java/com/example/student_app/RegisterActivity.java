@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Log.d("txt", reader.toString()+"");
                         Log.d("txt", "run: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                                (Request.Method.POST, Constant.RigisterURL, reader, new Response.Listener<JSONObject>() {
+                                (Request.Method.POST, Constant.RegisterURL, reader, new Response.Listener<JSONObject>() {
 
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -66,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         if (error.networkResponse.statusCode == 400) {
                                             Toast.makeText(getApplicationContext(), getText(R.string.SignUpDone), Toast.LENGTH_SHORT).show();
                                         }else{
+                                            error.printStackTrace();
                                             Toast.makeText(getApplicationContext(), getText(R.string.error), Toast.LENGTH_SHORT).show();
                                         }
                                         onBackPressed();
