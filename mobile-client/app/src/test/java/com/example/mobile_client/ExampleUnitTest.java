@@ -1,4 +1,4 @@
-package com.example.student_app;
+package com.example.mobile_client;
 
 import org.junit.Test;
 

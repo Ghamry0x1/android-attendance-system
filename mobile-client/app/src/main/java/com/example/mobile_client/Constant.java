@@ -1,4 +1,4 @@
-package com.example.student_app;
+package com.example.mobile_client;
 
 public class Constant {
     public static final String IntentID = "StdId";
@@ -25,6 +25,14 @@ public class Constant {
                         }
                     }
                 }
+            }
+        }
+        return false;
+    }
+    public static boolean CheckName(String TempName){
+        if (TempName.length() > 3) {
+            if (TempName.indexOf(' ') != -1){
+                return true;
             }
         }
         return false;

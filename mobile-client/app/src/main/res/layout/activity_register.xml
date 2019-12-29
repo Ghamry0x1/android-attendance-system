@@ -49,6 +49,16 @@
 
 
         <EditText
+            android:id="@+id/Nametxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_top"
+            android:hint="@string/Name"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:padding="15dp" />
+
+        <EditText
             android:id="@+id/Idtxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

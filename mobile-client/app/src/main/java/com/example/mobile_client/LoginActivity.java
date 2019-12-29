@@ -1,4 +1,4 @@
-package com.example.student_app;
+package com.example.mobile_client;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,7 +21,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     Button Sign;
     EditText StId;
@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("sdsd", "onResume: here");
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Constant.MY_PREFS_NAME, MODE_PRIVATE);
         String PrefStr = pref.getString(Constant.PrefID, null);
         if (PrefStr != null) {
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         Sign = findViewById(R.id.SignInBtn);
         StId = findViewById(R.id.Idtxt);
@@ -58,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         SingUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, RegisterActivity.class);
-                MainActivity.this.startActivity(myIntent);
+                Intent myIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                LoginActivity.this.startActivity(myIntent);
             }
         });
 
@@ -67,27 +66,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String TempID = StId.getText().toString().trim();
-                Log.d("txttttttttttt", TempID+"");
                 if (Constant.CheckID(TempID)){
                     try {
                         JSONObject user = new JSONObject();
                         JSONObject reader = new JSONObject();
                         user.put("id", TempID);
                         reader.put("student", user);
-                        Log.d("txt", reader.toString()+"");
-                        Log.d("txt", "run: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                                 (Request.Method.POST, Constant.LoginURL, reader, new Response.Listener<JSONObject>() {
 
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         Toast.makeText(getApplicationContext(), getText(R.string.LoginSuccess), Toast.LENGTH_SHORT).show();
-                                        Log.d("asdas", "onResponse: "+ response.toString());
                                         editor.putString(Constant.PrefID, TempID);
                                         editor.apply();
-                                        Intent myIntent = new Intent(MainActivity.this, Main2Activity.class);
+                                        Intent myIntent = new Intent(LoginActivity.this, LandingActivity.class);
                                         myIntent.putExtra(Constant.IntentID, TempID);
-                                        MainActivity.this.startActivity(myIntent);
+                                        LoginActivity.this.startActivity(myIntent);
                                     }
                                 }, new Response.ErrorListener() {
 
@@ -105,11 +100,10 @@ public class MainActivity extends AppCompatActivity {
 
                         queue.add(jsonObjectRequest);
                     } catch (JSONException e) {
-                        Log.d("tt", "Hereeeee");
                         e.printStackTrace();
                     }
                 }else{
-                    Toast.makeText(MainActivity.this,getText(R.string.InvalidID),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,getText(R.string.InvalidID),Toast.LENGTH_SHORT).show();
                 }
             }
         });

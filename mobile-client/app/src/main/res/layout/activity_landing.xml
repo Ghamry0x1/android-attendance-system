@@ -7,7 +7,7 @@
     android:background="@drawable/bg"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Main2Activity">
+    tools:context=".LandingActivity">
 
     <ImageView
         android:id="@+id/imageView3"

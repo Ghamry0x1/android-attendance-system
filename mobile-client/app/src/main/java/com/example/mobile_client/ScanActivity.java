@@ -1,4 +1,4 @@
-package com.example.student_app;
+package com.example.mobile_client;
 
 import android.Manifest;
 import android.content.Intent;
@@ -29,7 +29,6 @@ import org.json.JSONObject;
 public class ScanActivity extends AppCompatActivity {
 
     private CodeScanner mCodeScanner;
-
 
     public void KillApp(){
         Toast.makeText(ScanActivity.this,getString(R.string.IdiotUser),Toast.LENGTH_SHORT).show();
@@ -71,8 +70,6 @@ public class ScanActivity extends AppCompatActivity {
                             JSONObject user = new JSONObject();
                             user.put("id", getIntent().getStringExtra(Constant.IntentID));
                             reader.put("student", user);
-                            Log.d("txt", reader.toString()+"");
-                            Log.d("txt", "run: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                                     (Request.Method.POST, Constant.AttendanceURL, reader, new Response.Listener<JSONObject>() {
 

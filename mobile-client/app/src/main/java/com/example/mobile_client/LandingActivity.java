@@ -1,4 +1,4 @@
-package com.example.student_app;
+package com.example.mobile_client;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class Main2Activity extends AppCompatActivity {
+public class LandingActivity extends AppCompatActivity {
 
     Button ToCam;
     ImageView Logo;
@@ -15,7 +15,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_landing);
 
         Logo = findViewById(R.id.imageView3);
         ToCam = findViewById(R.id.button);
@@ -24,9 +24,9 @@ public class Main2Activity extends AppCompatActivity {
         ToCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(Main2Activity.this, ScanActivity.class);
+                Intent myIntent = new Intent(LandingActivity.this, ScanActivity.class);
                 myIntent.putExtra(Constant.IntentID, getIntent().getStringExtra(Constant.IntentID));
-                Main2Activity.this.startActivity(myIntent);
+                LandingActivity.this.startActivity(myIntent);
             }
         });
     }
