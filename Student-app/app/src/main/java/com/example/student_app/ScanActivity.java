@@ -47,14 +47,8 @@ public class ScanActivity extends AppCompatActivity {
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         final RequestQueue queue = Volley.newRequestQueue(this);
 
-        final String url = "http://104.154.52.199:3000/attendance";
-
         if (ContextCompat.checkSelfPermission(ScanActivity.this,Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
-
             // Permission is not granted
-
-            //ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
-            //Check again
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(ScanActivity.this,Manifest.permission.CAMERA)) {
                 ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},Constant.CAMERA_PERMISSION_CODE);
@@ -62,7 +56,7 @@ public class ScanActivity extends AppCompatActivity {
                 // No explanation needed; request the permission
                 ActivityCompat.requestPermissions(ScanActivity.this,new String[]{Manifest.permission.CAMERA},Constant.CAMERA_PERMISSION_CODE);
             }
-        } else {/* Permission has already been granted*/}
+        } else {/* Permission has already been granted...nice*/}
 
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -80,12 +74,11 @@ public class ScanActivity extends AppCompatActivity {
                             Log.d("txt", reader.toString()+"");
                             Log.d("txt", "run: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                                    (Request.Method.POST, url, reader, new Response.Listener<JSONObject>() {
+                                    (Request.Method.POST, Constant.AttendanceURL, reader, new Response.Listener<JSONObject>() {
 
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             Toast.makeText(getApplicationContext(), getText(R.string.Attend), Toast.LENGTH_SHORT).show();
-                                            onBackPressed();
                                         }
                                     }, new Response.ErrorListener() {
 
@@ -97,13 +90,14 @@ public class ScanActivity extends AppCompatActivity {
                                             }else{
                                                 Toast.makeText(getApplicationContext(), getText(R.string.error), Toast.LENGTH_SHORT).show();
                                             }
-                                            onBackPressed();
                                         }
                                     });
 
                             queue.add(jsonObjectRequest);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                        }finally {
+                            onBackPressed();
                         }
                     }
                 });
