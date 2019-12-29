@@ -89,6 +89,7 @@ public class ScanActivity extends AppCompatActivity {
                                                 Toast.makeText(getApplicationContext(), getText(R.string.AttendDone), Toast.LENGTH_SHORT).show();
                                             }else{
                                                 Toast.makeText(getApplicationContext(), getText(R.string.error), Toast.LENGTH_SHORT).show();
+                                                error.printStackTrace();
                                             }
                                         }
                                     });

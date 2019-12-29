@@ -14,6 +14,8 @@
     <string name="ScanCode">Scan Code</string>
     <string name="SignUpSuccess">Successfully signed up</string>
     <string name="SignUpDone">you have already signed up</string>
+    <string name="LoginSuccess">Login successful</string>
+    <string name="NoLogin">You are not registered for this course please sign up</string>
     <string name="Attend">Attendance submitted</string>
     <string name="AttendDone">you have already submitted your attendance</string>
     <string name="error">An error occurred pleases try again later</string>

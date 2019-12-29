@@ -6,7 +6,7 @@ public class Constant {
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     public static final String PrefID = "MySavedID";
     public static final String AttendanceURL = "http://104.154.52.199:3000/attendance";
-    public static final String RigisterURL = "http://104.154.52.199:3000/register";
+    public static final String RegisterURL = "http://104.154.52.199:3000/register";
     public static final String LoginURL = "http://104.154.52.199:3000/login";
 
     public static boolean CheckID(String TempID){
